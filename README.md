@@ -3,7 +3,7 @@
 
 #### What can do 
 1. Translate 
-2. Language Detect 
+2. Language Detect   
    
    
 **Reference**   
