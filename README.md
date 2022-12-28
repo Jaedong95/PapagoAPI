@@ -1,7 +1,7 @@
 # PapagoAPI
-## using papagoapi with python
+### using papagoapi with python
 
-What can do 
+#### What can do 
 1. Translate 
 2. Language Detect 
 
