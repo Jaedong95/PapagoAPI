@@ -2,7 +2,7 @@
 ### using papagoapi with python
 
 #### Requirements 
-1. attrdict 
+1. attrdict   
     pip install attrdict 
     
 2. client.json file 
