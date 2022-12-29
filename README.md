@@ -10,7 +10,8 @@ client.json file
 config.json file
 ```
 
-* Can customize & create client, config json file using create_jsons.ipynb **
+- Can customize & create client, config json file using create_jsons.ipynb **
+
 
 ### About config.json 
 0) common 
@@ -44,6 +45,8 @@ th | Thai
 id | Indonesia
 
 ### How to Run 
+- before use, delete log files of LD, translate and set flag=0
+
 ```bash
 $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}   
 ```
