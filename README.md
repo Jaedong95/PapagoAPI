@@ -11,7 +11,8 @@
 * If you do not have json files, you can use create_jsons.ipynb to create them **
 
 #### about config.json 
-
+Task: translate, LD
+source (translate config):  
 
 #### Translate tutorial
     $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}   
