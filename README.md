@@ -3,9 +3,8 @@
 
 #### Requirements 
 1. attrdict library   
-'''   
     pip install attrdict   
-'''   
+    test    
 2. client.json file 
 3. config.json file 
 
