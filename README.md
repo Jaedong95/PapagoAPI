@@ -35,4 +35,4 @@ source (translate config):
 - [Papago API Document](https://developers.naver.com/docs/papago/README.md) 
 - [Python Error Document](https://docs.python.org/3/tutorial/errors.html)
 - [UrlLib Error Document](https://github.com/python/cpython/blob/3.11/Lib/urllib/error.py)
-- [KoELECTRA](https://github.com/Jaedong95/KoELECTRA/edit/master/finetune/README.md)
+- [Structure of code, KoELECTRA](https://github.com/Jaedong95/KoELECTRA/edit/master/finetune/README.md)
