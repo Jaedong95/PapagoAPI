@@ -27,14 +27,14 @@ class PapagoTranslate(Papago):
         
         return res['message']['result']['translatedText']
     
-    def client_ld(self, s_idx, cli, papago_df, col):
+    def client_ld(self, s_idx, cli, papago_df):
         self.trans_idx = []
         self.trans_txt = []
         self.error_idx = []
         
         for idx in range(s_idx, len(papago_df)):
             try:
-                translated = self.language_translate(cli, papago_df[col][idx])
+                translated = self.language_translate(cli, papago_df[self.args.col][idx])
                 self.trans_idx.append(idx) 
                 self.trans_txt.append(translated)
  
@@ -43,7 +43,7 @@ class PapagoTranslate(Papago):
                 self.error_idx.append(idx)
                 continue
             except HTTPError as he:
-                print(f'HTTPError 발생 ! {idx}: {papago_df[col][idx]}')
+                print(f'HTTPError 발생 ! {idx}: {papago_df[self.args.col][idx]}')
                 if he.code == 429:
                     print('오류 내용: 일일 번역 한도 초과', end='\n\n')
                     break
@@ -106,7 +106,9 @@ def main(cli_argse):
     with open(os.path.join(cli_argse.config_path, cli_argse.task, cli_argse.config_file)) as f:
         args = AttrDict(json.load(f))
     
-    # args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
+    args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
+    args.file_name = 'tmp.csv'
+    args.save_file = 'tmp_translated.csv'
     papago = PapagoTranslate(args)
     papago.set_client()
     papago.load_data()
@@ -123,7 +125,7 @@ def main(cli_argse):
 
     for cls in client:
         print(f'{cls} 번역 작업중 ..')
-        papago.client_ld(s_idx, client[cls], data, args.col)
+        papago.client_ld(s_idx, client[cls], data)
         trans_idx = papago.trans_idx
         trans_txt = papago.trans_txt 
         error_idx = papago.error_idx
@@ -132,7 +134,7 @@ def main(cli_argse):
         try: 
             assert trans_idx[-1]   # trans_idx = []인 경우 오류 발생 
             if trans_idx[-1] == len(data) - 1:
-                print(f'{args.file_name} 파일에 대한 번역 작업이 모두 종료되었습니다')
+                print(f'{args.file_name} 파일에 대한 번역 작업이 모두 종료되었습니다.')
                 papago.save_data(args.save_file, trans_idx=trans_idx, trans_txt=trans_txt)
                 break
             s_idx = trans_idx[-1] + 1 
@@ -148,5 +150,5 @@ if __name__ == '__main__':
     cli_parser.add_argument("--config_path", type=str, default='config')
     cli_parser.add_argument("--config_file", type=str, default='translate_config.json')
     
-    args = cli_parser.parse_args()
-    main(args)
+    cli_argse = cli_parser.parse_args()
+    main(cli_argse)
