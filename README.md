@@ -45,7 +45,7 @@ th | Thai
 id | Indonesia
 
 ### How to Run 
-- before use, delete log files of LD, translate and set flag=0
+- before run, you should delete log files of log/LD/*.pickle, log/translate/*.pickle
 
 ```bash
 $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}   
