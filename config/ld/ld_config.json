@@ -1,1 +1,1 @@
-{"app_01": ["1NwXrsHlDVf7e7SKwXLs", "FfovdyHQAj"], "app_02": ["N023d6aJhcCq4hO7xTcQ", "mJbwjTeRW1"]}
+{"task": "LD", "data_path": "data", "client_path": "client", "client_file": "client.json", "config_path": "config", "log_path": "log", "file_name": "LD_sample.csv", "save_file": "LD_lang.csv", "save_file2": "LD_nlang.csv", "col": "text", "lang": "en", "flag": 0}
