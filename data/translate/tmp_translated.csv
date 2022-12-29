@@ -1,0 +1,6 @@
+id,context,turn_cnt,speaker_idx,speaker_sex,speaker_age,intent,text,translated
+95439,연애/결혼,1,1번,남성,30대,(단언) 주장하기,나는 몸에서 멀어지면 마음에서 멀어진다고 생각해,"I think if you move away from the body, you move away from the mind"
+95439,연애/결혼,2,2번,남성,30대,(단언) 주장하기,그게 참 사람마다 다를 순 있지만 힘든건 사실이지,"It can be different for each person, but it's true that it's hard"
+95439,연애/결혼,3,3번,여성,20대,(단언) 주장하기,처음부터 장거리는 더 힘들 것 같아,I think the long distance from the start will be harder
+95439,연애/결혼,4,1번,남성,30대,(단언) 진술하기,맨날 보고싶으면 결혼하는거지 나처럼~,"If you miss me every day, you get married like me"
+95439,연애/결혼,5,2번,남성,30대,(지시) 질문하기,그래서 맨날 보니까 좋아?,"So, do you like seeing each other every day?"

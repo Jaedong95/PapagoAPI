@@ -1,0 +1,1 @@
+{"task": "translate", "data_path": "data", "client_path": "client", "client_file": "client.json", "config_path": "config", "log_path": "log", "source": "ko", "target": "en", "file_name": "tmp.csv", "save_file": "tmp_translated.csv", "col": "text", "flag": 0}
