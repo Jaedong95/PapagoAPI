@@ -28,6 +28,20 @@ config.json file
 - save_file: files corresponding to the lang
 - save_file2: files not corresponding to the lang
 
+* Language Code
+
+Code | Language 
+--|--
+ko | Korean
+en | English
+ja | Japanese
+zh-CN | Chinese
+zh-TW | Chinese traditional
+es | Spanish
+fr | French
+vi | Vietnamese
+th | Thai
+id | Indonesia
 
 ### How to Run 
 ```bash
