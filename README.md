@@ -4,6 +4,8 @@
 ## Requirements 
 ```python 
 attrdict
+```
+```bash
 client.json file
 config.json file
 ```
