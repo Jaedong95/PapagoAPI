@@ -62,3 +62,4 @@ $ python Papago-LD.py --task LD --config-dir config --config-file LD_config.json
 - [Python Error Document](https://docs.python.org/3/tutorial/errors.html)
 - [UrlLib Error Document](https://github.com/python/cpython/blob/3.11/Lib/urllib/error.py)
 - [Structure of code, KoELECTRA](https://github.com/monologg/KoELECTRA)
+- [papago](https://github.com/stunstunstun/papago)
