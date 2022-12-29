@@ -28,7 +28,7 @@ config.json file
 - save_file: files corresponding to the lang
 - save_file2: files not corresponding to the lang
 
-* Language Code
+#### Language Code
 
 Code | Language 
 --|--
