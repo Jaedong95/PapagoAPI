@@ -1,7 +1,7 @@
 # PapagoAPI
 ## Language Detection(LD), Translate using PapagoApi (python)
 
-### Requirements 
+### 0. Requirements 
 ```python 
 attrdict
 ```
@@ -13,7 +13,7 @@ config.json file
 *Can customize & create client.json, config.json using __create_jsons.ipynb__*
 
 
-### About config.json 
+### 1. About config.json 
 ##### 0) common 
 - file_name - source file that you want to work with (type should be .csv)
 - flag - 0 if task is the first (don't have log) else 1 (load previous log)
@@ -44,7 +44,7 @@ vi | Vietnamese
 th | Thai
 id | Indonesia
 
-### How to Run 
+### 2. How to Run 
 *before run, you should delete all log files (log/LD/.pickle, log/translate/.pickle)*
 
 ```bash
@@ -57,7 +57,7 @@ $ python Papago-LD.py --task LD --config-dir config --config-file LD_config.json
 ```
 
    
-### Reference  
+### 3. Reference  
 - [Papago API Document](https://developers.naver.com/docs/papago/README.md) 
 - [Python Error Document](https://docs.python.org/3/tutorial/errors.html)
 - [UrlLib Error Document](https://github.com/python/cpython/blob/3.11/Lib/urllib/error.py)
