@@ -57,13 +57,13 @@ class PapagoTranslate(Papago):
 
     def load_log(self):
         print(f'이전 작업 기록들을 로드합니다.')
-        with open(os.path.join(self.args.log_path, 'trans_idx.pickle'), 'rb') as f:
+        with open(os.path.join(self.args.log_path, self.args.task, 'trans_idx.pickle'), 'rb') as f:
             trans_idx = pickle.load(f)
 
-        with open(os.path.join(self.args.log_path, 'trans_txt.pickle'), 'rb') as f:
+        with open(os.path.join(self.args.log_path, self.args.task, 'trans_txt.pickle'), 'rb') as f:
             trans_txt = pickle.load(f)
             
-        with open(os.path.join(self.args.log_path, 'error_idx.pickle'), 'rb') as f:
+        with open(os.path.join(self.args.log_path, self.args.task, 'error_idx.pickle'), 'rb') as f:
             error_idx = pickle.load(f)
             
         return trans_idx, trans_txt, error_idx
@@ -71,33 +71,33 @@ class PapagoTranslate(Papago):
     def save_log(self, trans_idx, trans_txt, error_idx):
         print(f'번역 작업 로그를 저장합니다.', end='\n\n')
         try:   # 이전 작업 기록이 있으면
-            with open(os.path.join(self.args.log_path, 'trans_idx.pickle'), 'rb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'trans_idx.pickle'), 'rb') as f:
                 prev_trans_idx = pickle.load(f)
             prev_trans_idx.extend(trans_idx)
-            with open(os.path.join(self.args.log_path, 'trans_idx.pickle'), 'wb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'trans_idx.pickle'), 'wb') as f:
                 pickle.dump(prev_trans_idx, f, pickle.HIGHEST_PROTOCOL)         
         except:   # 신규 기록이면 
-            with open(os.path.join(self.args.log_path, 'trans_idx.pickle'), 'wb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'trans_idx.pickle'), 'wb') as f:
                 pickle.dump(trans_idx, f, pickle.HIGHEST_PROTOCOL)
                 
         try:    
-            with open(os.path.join(self.args.log_path, 'trans_txt.pickle'), 'rb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'trans_txt.pickle'), 'rb') as f:
                 prev_trans_txt = pickle.load(f)
             prev_trans_txt.extend(trans_txt)
-            with open(os.path.join(self.args.log_path, 'trans_txt.pickle'), 'wb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'trans_txt.pickle'), 'wb') as f:
                 pickle.dump(prev_trans_txt, f, pickle.HIGHEST_PROTOCOL)         
         except:
-            with open(os.path.join(self.args.log_path, 'trans_txt.pickle'), 'wb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'trans_txt.pickle'), 'wb') as f:
                 pickle.dump(trans_txt, f, pickle.HIGHEST_PROTOCOL)
         
         try:
-            with open(os.path.join(self.args.log_path, 'error_idx.pickle'), 'rb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'error_idx.pickle'), 'rb') as f:
                 prev_error_idx = pickle.load(f)
             prev_error_idx.extend(error_idx)
-            with open(os.path.join(self.args.log_path, 'error_idx.pickle'), 'wb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'error_idx.pickle'), 'wb') as f:
                 pickle.dump(prev_error_idx, f, pickle.HIGHEST_PROTOCOL)         
         except:
-            with open(os.path.join(self.args.log_path, 'error_idx.pickle'), 'wb') as f:
+            with open(os.path.join(self.args.log_path, self.args.task, 'error_idx.pickle'), 'wb') as f:
                 pickle.dump(error_idx, f, pickle.HIGHEST_PROTOCOL)
     
 
@@ -106,13 +106,15 @@ def main(cli_argse):
     with open(os.path.join(cli_argse.config_path, cli_argse.task, cli_argse.config_file)) as f:
         args = AttrDict(json.load(f))
     
-    papago = PapagoTranslate(cli_argse)
+    args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
+    args.file_name = 'tmp.csv'
+    args.save_file = 'tmp_translated.csv'
+    papago = PapagoTranslate(args)
     papago.set_client()
     papago.load_data()
     client = papago.client
     data = papago.data
     
-    # args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
     s_idx = 0
     if args.flag == 1:
         trans_idx, trans_txt, error_idx = papago.load_log() 
@@ -144,8 +146,8 @@ def main(cli_argse):
 if __name__ == '__main__':
     cli_parser = argparse.ArgumentParser()
     
-    cli_parser.add_argument("--task", type=str, defualt='translate')
-    cli_parser.add_argument("--config_dir", type=str, default='config')
+    cli_parser.add_argument("--task", type=str, default='translate')
+    cli_parser.add_argument("--config_path", type=str, default='config')
     cli_parser.add_argument("--config_file", type=str, default='translate_config.json')
     
     args = cli_parser.parse_args()
