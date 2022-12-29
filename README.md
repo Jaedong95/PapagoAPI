@@ -1,12 +1,12 @@
 # PapagoAPI
 ### Language Detection(LD), Translate with papagoapi (python)
 
-#### Requirements 
-1. Attrdict
-    `pip install attrdict`   
-    
-2. client.json file 
-3. config.json file 
+## Requirements 
+```python 
+attrdict
+client.json file
+config.json file
+```
 
 * Can customize & create client, config json file using create_jsons.ipynb **
 
