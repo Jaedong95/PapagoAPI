@@ -1,5 +1,5 @@
 # PapagoAPI
-### Language Detection(LD), Translate with papagoapi (python)
+# Language Detection(LD), Translate using papagoapi (python)
 
 ## Requirements 
 ```python 
