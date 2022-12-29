@@ -14,7 +14,7 @@
 
 
 #### Translate tutorial
-    $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}
+    $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}   
     $ python Papago-Translate.py --task translate --config-dir config --config-file translate_config.json
     $ python Papago-LD.py --task ld --config-dir config --config-file ld_config.json
    
