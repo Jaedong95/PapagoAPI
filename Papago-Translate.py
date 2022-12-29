@@ -106,9 +106,7 @@ def main(cli_argse):
     with open(os.path.join(cli_argse.config_path, cli_argse.task, cli_argse.config_file)) as f:
         args = AttrDict(json.load(f))
     
-    args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
-    args.file_name = 'tmp.csv'
-    args.save_file = 'tmp_translated.csv'
+    # args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
     papago = PapagoTranslate(args)
     papago.set_client()
     papago.load_data()
