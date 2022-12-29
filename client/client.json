@@ -1,1 +1,1 @@
-{"app_01": ["ClientID 1", "Client Secret n"], ...,  "app_n": ["ClientID n", "Client Secret n"], }
+{"app_01": ["ClientID 1", "Client Secret 1"], ... ,"app_n": ["ClientID n", "Client Secret n"]}
