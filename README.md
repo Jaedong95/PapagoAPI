@@ -23,22 +23,16 @@ $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --co
 
 ```bash
 $ python Papago-Translate.py --task translate --config-dir config --config-file translate_config.json
-$ python Papago-LD.py --task ld --config-dir config --config-file ld_config.json
+$ python Papago-LD.py --task LD --config-dir config --config-file LD_config.json
 ```
 
 Information config.json 
 Task: translate, LD
 source (translate config):  
 
-#### Translate tutorial
-    '''
-    $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}   
-    '''
-    $ python Papago-Translate.py --task translate --config-dir config --config-file translate_config.json
-    $ python Papago-LD.py --task ld --config-dir config --config-file ld_config.json
    
-**Reference**   
-https://developers.naver.com/docs/papago/README.md   
-https://docs.python.org/3/tutorial/errors.html   
-https://github.com/python/cpython/blob/3.11/Lib/urllib/error.py
-https://github.com/Jaedong95/KoELECTRA/edit/master/finetune/README.md
+## Reference  
+- [Papago API Document](https://developers.naver.com/docs/papago/README.md) 
+- [Python Error Document](https://docs.python.org/3/tutorial/errors.html)
+- [UrlLib Error Document](https://github.com/python/cpython/blob/3.11/Lib/urllib/error.py)
+- [KoELECTRA](https://github.com/Jaedong95/KoELECTRA/edit/master/finetune/README.md)
