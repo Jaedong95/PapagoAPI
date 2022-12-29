@@ -27,14 +27,14 @@ class PapagoTranslate(Papago):
         
         return res['message']['result']['translatedText']
     
-    def client_ld(self, s_idx, cli, papago_df, text):
+    def client_ld(self, s_idx, cli, papago_df, col):
         self.trans_idx = []
         self.trans_txt = []
         self.error_idx = []
         
         for idx in range(s_idx, len(papago_df)):
             try:
-                translated = self.language_translate(cli, papago_df[text][idx])
+                translated = self.language_translate(cli, papago_df[col][idx])
                 self.trans_idx.append(idx) 
                 self.trans_txt.append(translated)
  
@@ -43,7 +43,7 @@ class PapagoTranslate(Papago):
                 self.error_idx.append(idx)
                 continue
             except HTTPError as he:
-                print(f'HTTPError 발생 ! {idx}: {papago_df[text][idx]}')
+                print(f'HTTPError 발생 ! {idx}: {papago_df[col][idx]}')
                 if he.code == 429:
                     print('오류 내용: 일일 번역 한도 초과', end='\n\n')
                     break
@@ -106,9 +106,7 @@ def main(cli_argse):
     with open(os.path.join(cli_argse.config_path, cli_argse.task, cli_argse.config_file)) as f:
         args = AttrDict(json.load(f))
     
-    args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
-    args.file_name = 'tmp.csv'
-    args.save_file = 'tmp_translated.csv'
+    # args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
     papago = PapagoTranslate(args)
     papago.set_client()
     papago.load_data()
