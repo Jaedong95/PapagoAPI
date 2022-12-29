@@ -15,19 +15,19 @@ config.json file
 
 ### About config.json 
 #### 0) common 
-- file_name: source file that you want to work with (type should be .csv)
-- flag: 0 if task is the first (don't have log) else 1 (load previous log)
-- col: column name containing the text you want to work with
+- file_name - source file that you want to work with (type should be .csv)
+- flag - 0 if task is the first (don't have log) else 1 (load previous log)
+- col - column name containing the text you want to work with
 
 #### 1) translate_config.json
-- source: the original language
-- target: the target language
-- save_file: source file + translated result (column: 'translated', .csv)
+- source - the original language
+- target - the target language
+- save_file - source file + translated result (column: 'translated', .csv)
 
 #### 2) LD_config.json
-- lang: language you want to detect
-- save_file: files corresponding to the lang
-- save_file2: files not corresponding to the lang
+- lang - language you want to detect
+- save_file - files corresponding to the lang
+- save_file2 - files not corresponding to the lang
 
 #### 3) Language Code
 
@@ -45,7 +45,7 @@ th | Thai
 id | Indonesia
 
 ### How to Run 
-**before run, you should delete all log files (log/LD/~.pickle, log/translate/~.pickle)**
+*before run, you should delete all log files (log/LD/.pickle, log/translate/.pickle)*
 
 ```bash
 $ python Papago-Translate.py --task {$TASK_NAME} --config-dir {$CONFIG_DIR} --config-file {$CONFIG_FILE}   
