@@ -106,7 +106,7 @@ def main(cli_argse):
     with open(os.path.join(cli_argse.config_path, cli_argse.task, cli_argse.config_file)) as f:
         args = AttrDict(json.load(f))
     
-    # args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
+    args.flag = 0  # 해당 파일을 처음 작업하는 경우: 0, 이어서 작업하는 경우: 1  
     papago = PapagoTranslate(args)
     papago.set_client()
     papago.load_data()
@@ -138,8 +138,11 @@ def main(cli_argse):
             s_idx = trans_idx[-1] + 1 
         except:
             s_idx = 0
-        print(len(trans_idx), len(trans_txt), len(error_idx), trans_idx[-1], end='\n\n')
-
+        try:
+            assert trans_idx[-1]
+            print(len(trans_idx), len(trans_txt), len(error_idx), trans_idx[-1], end='\n\n')
+        except:
+            print('번역된 데이터 없음 !')
 
 if __name__ == '__main__':
     cli_parser = argparse.ArgumentParser()
