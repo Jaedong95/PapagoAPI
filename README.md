@@ -3,7 +3,7 @@
 
 ### 0. Requirements 
 ```python 
-attrdict
+attrdict  - pip install attrdict
 ```
 ```python
 client.json file
