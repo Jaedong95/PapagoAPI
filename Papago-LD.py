@@ -30,20 +30,24 @@ class PapagoLD(Papago):
         self.lang_idx = []
         self.nlang_idx = []
         self.error_idx = []
-        self.s_idx = 0 
+        self.ld_idx = []
                 
         for idx in range(s_idx, len(papago_df)):
+            if "i'm" in papago_df[self.args.col][idx].lower():
+                print(papago_df[self.args.col][idx])
+                self.lang_idx.append(idx)
+                continue
             try:
                 language = self.language_detect(cli, papago_df[self.args.col][idx])
                 if language == self.args.lang:
                     self.lang_idx.append(idx) 
                 elif language != self.args.lang:
-                    self.nlang_idx.append(idx) 
+                    self.nlang_idx.append(idx)
+                self.ld_idx.append(idx)
             except Exception as e:
-                print(f'오류 발생 ! {idx}: {papago_df[self.args.col][idx]}')
+                print(f'오류 발생 ! {idx}: {papago_df[self.args.col][idx]}', e.code)
                 if e.code == 429:
                     print('오류 내용: 일일 언어 감지 한도 초과', end='\n\n')
-                    self.s_idx = idx
                     break
                 
                 if e.code == 500:
@@ -51,7 +55,7 @@ class PapagoLD(Papago):
                     self.error_idx.append(idx)
                     continue 
             
-        print(f'언어 감지 종료 !')
+        print(f'해당 Application 언어 감지 종료 !')
     
     def load_log(self):
         print(f'이전 작업 기록들을 로드합니다.')
@@ -64,12 +68,12 @@ class PapagoLD(Papago):
         with open(os.path.join(self.args.log_path, self.args.task, 'error_idx.pickle'), 'rb') as f:
             error_idx = pickle.load(f)
             
-        with open(os.path.join(self.args.log_path, self.args.task, 's_idx.pickle'), 'rb') as f:
-            s_idx = pickle.load(f)
+        with open(os.path.join(self.args.log_path, self.args.task, 'ld_idx.pickle'), 'rb') as f:
+            ld_idx = pickle.load(f)
             
-        return lang_idx, nlang_idx, error_idx, s_idx
+        return lang_idx, nlang_idx, error_idx, ld_idx
 
-    def save_log(self, lang_idx, nlang_idx, error_idx, e_idx):
+    def save_log(self, lang_idx, nlang_idx, error_idx, ld_idx):
         try: 
             with open(os.path.join(self.args.log_path, self.args.task, 'lang_idx.pickle'), 'rb') as f:
                 prev_lang_idx = pickle.load(f)
@@ -100,8 +104,15 @@ class PapagoLD(Papago):
             with open(os.path.join(self.args.log_path, self.args.task, 'error_idx.pickle'), 'wb') as f:
                 pickle.dump(error_idx, f, pickle.HIGHEST_PROTOCOL)
 
-        with open(os.path.join(self.args.log_path, self.args.task, 's_idx.pickle'), 'wb') as f:
-            pickle.dump(e_idx, f, pickle.HIGHEST_PROTOCOL)
+        try:
+            with open(os.path.join(self.args.log_path, self.args.task, 'ld_idx.pickle'), 'rb') as f:
+                prev_ld_idx = pickle.load(f)
+            prev_ld_idx.extend(ld_idx)
+            with open(os.path.join(self.args.log_path, self.args.task, 'ld_idx.pickle'), 'wb') as f:
+                pickle.dump(prev_ld_idx, f, pickle.HIGHEST_PROTOCOL)         
+        except:
+            with open(os.path.join(self.args.log_path, self.args.task, 'ld_idx.pickle'), 'wb') as f:
+                pickle.dump(ld_idx, f, pickle.HIGHEST_PROTOCOL)
 
 
 def main(cli_argse):
@@ -118,8 +129,9 @@ def main(cli_argse):
 
     s_idx = 0
     if args.flag == 1:
-        lang_idx, nlang_idx, error_idx, s_idx = papago.load_log()
-        print(f'언어 감지 시작 지점: {s_idx}')
+        lang_idx, nlang_idx, error_idx, ld_idx = papago.load_log()
+        print(f'언어 감지 시작 지점: {ld_idx[-1]}')
+        s_idx = ld_idx[-1] + 1
 
     print(f'언어 감지 작업 준비 완료')
     
@@ -129,13 +141,19 @@ def main(cli_argse):
         lang_idx = papago.lang_idx   
         nlang_idx = papago.nlang_idx
         error_idx = papago.error_idx
-        e_idx = papago.s_idx
-        papago.save_log(lang_idx, nlang_idx, error_idx, e_idx)
-        lang_idx, nlang_idx, error_idx, s_idx = papago.load_log()        
-        if s_idx == 0:
-            print(f'{args.file_name} 파일에 대한 언어 감지 작업이 모두 종료되었습니다.')
-            papago.save_data(args.save_file, nlang_name=args.save_file2, lang_idx=lang_idx, nlang_idx=nlang_idx)
-            break
+        ld_idx = papago.ld_idx
+        papago.save_log(lang_idx, nlang_idx, error_idx, ld_idx)
+        lang_idx, nlang_idx, error_idx, ld_idx = papago.load_log()      
+        try: 
+            assert ld_idx[-1]
+            if ld_idx[-1] == len(data) - 1:
+                print(f'{args.file_name} 파일에 대한 언어 감지 작업이 모두 종료되었습니다.')
+                papago.save_data(args.save_file, nlang_name = args.save_file2, lang_idx=lang_idx, nlang_idx=nlang_idx)
+                break   
+            s_idx = ld_idx[-1] + 1
+        except:
+            s_idx = 0
+
         print(len(lang_idx), len(nlang_idx), len(error_idx), s_idx, end='\n\n')
 
 
